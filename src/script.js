@@ -3,7 +3,7 @@ import './sounds.js'
 import './textures.js'
 import './physics.js'
 import { floor } from './objects.js'
-import { directionalLight, directionalLight_1 } from './lights.js'
+import { directionalLight, directionalLight_1, updateLights } from './lights.js'
 import { camera, createControls, setupResizeHandler } from './camera.js'
 import { createRenderer } from './renderer.js'
 import { startAnimation } from './animation.js'
@@ -58,4 +58,4 @@ setupDebug(scene)
 /**
  * Animate
  */
-startAnimation(scene, camera, renderer, controls)
+startAnimation(scene, camera, renderer, controls, updateLights)

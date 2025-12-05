@@ -25,3 +25,55 @@ directionalLight_1.shadow.camera.top = 7
 directionalLight_1.shadow.camera.right = 7
 directionalLight_1.shadow.camera.bottom = - 7
 directionalLight_1.position.set(-5, 5, 0)
+
+const fadePeriod = 2000;
+const fadeOutDuration = 1000;
+const fadeInDuration = fadePeriod - fadeOutDuration;
+const colors = [
+    { r: 255, g: 0, b: 0 },
+    { r: 0, g: 255, b: 0 },
+    { r: 0, g: 0, b: 255 },
+]
+
+let fadeOutStartTime = null;
+let fadeInStartTime = null;
+let currentColor = colors[0];
+
+export const updateLights = () => {
+    const currentTime = performance.now();
+    const fadeOutTime = fadeOutStartTime ? currentTime - fadeOutStartTime : null;
+    const fadeInTime = fadeInStartTime ? currentTime - fadeInStartTime : null;
+    
+    if (fadeOutTime && fadeOutTime < fadeOutDuration) {
+        const progress = fadeOutTime / fadeOutDuration;
+     
+        const r = currentColor.r * (1 - progress);
+        const g = currentColor.g * (1 - progress);
+        const b = currentColor.b * (1 - progress);
+        directionalLight.color.setRGB(r / 255, g / 255, b / 255);
+    } else if (fadeInTime && fadeInTime < fadeInDuration) {
+        const progress = fadeInTime / fadeInDuration;
+    
+        const r = currentColor.r * progress;
+        const g = currentColor.g * progress;
+        const b = currentColor.b * progress;
+        directionalLight.color.setRGB(r / 255, g / 255, b / 255);
+    } else {
+        fadeOutStartTime = null;
+        fadeInStartTime = null;
+    }
+
+    if (fadeOutTime && fadeOutTime >= fadeOutDuration) {
+        fadeOutStartTime = null;
+        fadeInStartTime = currentTime;
+        currentColor = colors[(colors.indexOf(currentColor) + 1) % colors.length];
+    } else if (fadeInTime && fadeInTime >= fadeInDuration) {
+        fadeInStartTime = null;
+        fadeOutStartTime = currentTime;
+    }
+
+    if (!fadeOutStartTime && !fadeInStartTime) {
+        fadeOutStartTime = currentTime;
+    }
+    
+}

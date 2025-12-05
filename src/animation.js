@@ -5,7 +5,7 @@ import { objectsToUpdate } from './objects.js'
 /**
  * Animate
  */
-export const startAnimation = (scene, camera, renderer, controls) => {
+export const startAnimation = (scene, camera, renderer, controls, updateLights) => {
     const clock = new THREE.Clock();
     let oldElapsedTime = clock.getElapsedTime();
 
@@ -27,6 +27,8 @@ export const startAnimation = (scene, camera, renderer, controls) => {
 
         // sphere.position.copy(sphereBody.position);
 
+
+        updateLights();
         // Update controls
         controls.update()
 
