@@ -23,8 +23,10 @@ import { playHitSound } from './sounds.js'
 /**
  * Floor
  */
+
+const floorSize = 10;
 export const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(10, 10),
+    new THREE.PlaneGeometry(floorSize, floorSize),
     new THREE.MeshStandardMaterial({
         color: '#777777',
         metalness: 0.3,
@@ -35,6 +37,21 @@ export const floor = new THREE.Mesh(
 )
 floor.receiveShadow = true
 floor.rotation.x = - Math.PI * 0.5
+
+const targerSize = floorSize * 0.25
+export const target = new THREE.Mesh(
+    new THREE.PlaneGeometry(targerSize, targerSize),
+    new THREE.MeshStandardMaterial({
+        color: '#FF0000',
+        metalness: 0.3,
+        roughness: 0.4,
+        envMap: environmentMapTexture,
+        envMapIntensity: 0.5
+    })
+)   
+target.receiveShadow = true
+target.rotation.x = - Math.PI * 0.5
+target.position.set(targerSize, 0.01 , 0)
 
 /**
  * Utils

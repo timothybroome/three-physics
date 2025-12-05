@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import './sounds.js'
 import './textures.js'
 import './physics.js'
-import { floor } from './objects.js'
+import { floor, target } from './objects.js'
 import { directionalLight, directionalLight_1, updateLights } from './lights.js'
 import { camera, createControls, setupResizeHandler } from './camera.js'
 import { createRenderer } from './renderer.js'
@@ -25,6 +25,8 @@ window.__threeScene = scene
  * Floor
  */
 scene.add(floor)
+
+scene.add(target)
 
 /**
  * Lights
