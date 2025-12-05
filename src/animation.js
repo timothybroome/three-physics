@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { world } from './physics.js'
-import { objectsToUpdate } from './objects.js'
+import { objectsToUpdate, updateTarget } from './objects.js'
 
 /**
  * Animate
@@ -29,6 +29,9 @@ export const startAnimation = (scene, camera, renderer, controls, updateLights) 
 
 
         updateLights();
+
+        updateTarget();
+        
         // Update controls
         controls.update()
 
